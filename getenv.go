@@ -24,16 +24,16 @@ func (m *Module) GetEnv(key, defaultValue string) string {
 	return value
 }
 
-func (m *Module) GetEnvInt(key string, defaultValue int) int {
+func (m *Module) GetEnvInt(key string, defaultValue int) (int, error) {
 	value := os.Getenv(key)
 	if len(value) == 0 {
-		return defaultValue
+		return defaultValue, nil
 	}
 	n, err := strconv.Atoi(value)
 	if err != nil {
-		panic(err)
+		return defaultValue, err
 	}
-	return n
+	return n, nil
 }
 
 func (m *Module) GetString(value, defaultValue string) string {
@@ -43,15 +43,15 @@ func (m *Module) GetString(value, defaultValue string) string {
 	return value
 }
 
-func (m *Module) GetInt(value string, defaultValue int) int {
+func (m *Module) GetInt(value string, defaultValue int) (int, error) {
 	if len(value) == 0 || value == "undefined" {
-		return defaultValue
+		return defaultValue, nil
 	}
 	n, err := strconv.Atoi(value)
 	if err != nil {
-		panic(err)
+		return defaultValue, err
 	}
-	return n
+	return n, nil
 }
 
 func New() *Module {

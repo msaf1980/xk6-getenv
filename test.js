@@ -59,4 +59,6 @@ export default function() {
     check(VAR_NUM, {
         'VAR_NUM=33': (r) => r == 33,
     });
+
+    let NOT_NUM = getenv.getInt(`${__ENV.VAR_STRING}`, 10);
 }
