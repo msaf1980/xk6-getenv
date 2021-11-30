@@ -44,7 +44,7 @@ func (m *Module) GetString(value, defaultValue string) string {
 }
 
 func (m *Module) GetInt(value string, defaultValue int) int {
-	if len(value) == 0 {
+	if len(value) == 0 || value == "undefined" {
 		return defaultValue
 	}
 	n, err := strconv.Atoi(value)

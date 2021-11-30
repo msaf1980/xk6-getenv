@@ -21,6 +21,13 @@ export default function() {
         'ENV_STRING=value': (r) => r == "value",
     });
 
+
+    let UNDEF_STRING = getenv.getString(`${__ENV.UNDEF_STRING}`);
+    console.log("UNDEF_STRING=" + UNDEF_STRING);
+    check(UNDEF_STRING, {
+        'UNDEF_STRING=undefined': (r) => r == "undefined",
+    });
+
     let VAR_STRING = getenv.getString(`${__ENV.VAR_STRING}`, "empty");
     console.log("VAR_STRING=" + VAR_STRING);
     check(VAR_STRING, {
@@ -39,6 +46,12 @@ export default function() {
     console.log("ENV_NUM=" + getenv.getEnvInt("ENV_NUM", 10)); // NUM=22
     check(ENV_NUM, {
         'ENV_NUM=10': (r) => r == 22,
+    });
+
+    let UNDEF_NUM = getenv.getInt(`${__ENV.UNDEF_NUM}`, 10);
+    console.log("UNDEF_NUM=" + UNDEF_NUM);
+    check(UNDEF_NUM, {
+        'UNDEF_NUM=10': (r) => r == 10,
     });
 
     let VAR_NUM = getenv.getInt(`${__ENV.VAR_NUM}`, 10);
