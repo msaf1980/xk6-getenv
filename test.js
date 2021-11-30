@@ -22,10 +22,10 @@ export default function() {
     });
 
 
-    let UNDEF_STRING = getenv.getString(`${__ENV.UNDEF_STRING}`);
+    let UNDEF_STRING = getenv.getString(`${__ENV.UNDEF_STRING}`, "empty");
     console.log("UNDEF_STRING=" + UNDEF_STRING);
     check(UNDEF_STRING, {
-        'UNDEF_STRING=undefined': (r) => r == "undefined",
+        'UNDEF_STRING=empty': (r) => r == "empty",
     });
 
     let VAR_STRING = getenv.getString(`${__ENV.VAR_STRING}`, "empty");

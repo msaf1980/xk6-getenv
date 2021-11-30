@@ -37,7 +37,7 @@ func (m *Module) GetEnvInt(key string, defaultValue int) int {
 }
 
 func (m *Module) GetString(value, defaultValue string) string {
-	if len(value) == 0 {
+	if len(value) == 0 || value == "undefined" {
 		return defaultValue
 	}
 	return value
