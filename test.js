@@ -4,6 +4,9 @@ import { check } from 'k6';
 export let options = {
     vus: 1,
     iterations: 1,
+    thresholds: {
+        checks: ['rate=1'],
+    },
 }
 
 export default function() {
@@ -43,9 +46,9 @@ export default function() {
     });
 
     let ENV_NUM = getenv.getEnvInt("ENV_NUM", 10)
-    console.log("ENV_NUM=" + getenv.getEnvInt("ENV_NUM", 10)); // NUM=22
+    console.log("ENV_NUM=" + ENV_NUM); // NUM=22
     check(ENV_NUM, {
-        'ENV_NUM=10': (r) => r == 22,
+        'ENV_NUM=22': (r) => r == 22,
     });
 
     let UNDEF_NUM = getenv.getInt(`${__ENV.UNDEF_NUM}`, 10);
@@ -60,5 +63,18 @@ export default function() {
         'VAR_NUM=33': (r) => r == 33,
     });
 
+    let NOT_RAND_NUM = getenv.getEnvIntRand("ENV_NUM", 10)
+    console.log("NOT_RUND_NUM=" + NOT_RAND_NUM); // NUM=22
+    check(NOT_RAND_NUM, {
+        'NOT_RUND_NUM=22': (r) => r == 22,
+    });
+
+    let RAND_NUM = getenv.getIntRand('100:200', 10);
+    console.log("RAND_NUM=" + RAND_NUM);
+    check(RAND_NUM, {
+        'RAND_NUM in range (100:200)': (r) => r >= 100 && r < 200,
+    });
+    
+    console.log("NOT_NUM must failed");
     let NOT_NUM = getenv.getInt(`${__ENV.VAR_STRING}`, 10);
 }

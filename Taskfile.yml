@@ -29,4 +29,4 @@ tasks:
   test:
     deps: [build]
     cmds:
-      - ENV_STRING=value ENV_NUM=22 ./k6 run -e VAR_STRING=string -e VAR_NUM=33 --no-color --no-usage-report test.js
+      - ENV_STRING=value ENV_NUM=22 ./k6 run -e VAR_STRING=string -e VAR_NUM=33 --no-usage-report test.js
