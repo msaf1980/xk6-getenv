@@ -72,7 +72,7 @@ export default function() {
     let RAND_NUM = getenv.getIntRand('100:200', 10);
     console.log("RAND_NUM=" + RAND_NUM);
     check(RAND_NUM, {
-        'RAND_NUM in range (100:200)': (r) => r >= 100 && r < 200,
+        'RAND_NUM in range (100:200)': (r) => r >= 100 && r <= 200,
     });
     
     console.log("NOT_NUM must failed");

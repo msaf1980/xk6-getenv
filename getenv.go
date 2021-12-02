@@ -51,7 +51,7 @@ func getIntRand(value string, defaultValue int) (int, error) {
 		max, min = min, max
 	}
 
-	return rand.Intn(max-min) + min, nil
+	return rand.Intn(max+1-min) + min, nil
 }
 
 func (m *Module) GetEnv(key, defaultValue string) string {
