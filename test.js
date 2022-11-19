@@ -5,7 +5,7 @@ export let options = {
     vus: 1,
     iterations: 1,
     thresholds: {
-        checks: ['rate=1'],
+        checks: ['rate==1.0'],
     },
 }
 
@@ -75,6 +75,19 @@ export default function() {
         'RAND_NUM in range (100:200)': (r) => r >= 100 && r <= 200,
     });
     
+    let VAR_FLOAT = getenv.getFloat(`${__ENV.VAR_FLOAT}`, 0.1);
+    console.log("VAR_FLOAT=" + VAR_FLOAT);
+    check(VAR_FLOAT, {
+        'VAR_FLOAT=2.5': (r) => r == 2.5,
+    });
+
+    let ENV_FLOAT = getenv.getEnvFloat("ENV_FLOAT", 0.1);
+    console.log("ENV_FLOAT=" + ENV_FLOAT);
+    check(ENV_FLOAT, {
+        'ENV_FLOAT=3.41': (r) => r == 3.41,
+    });
+
     console.log("NOT_NUM must failed");
     let NOT_NUM = getenv.getInt(`${__ENV.VAR_STRING}`, 10);
+
 }

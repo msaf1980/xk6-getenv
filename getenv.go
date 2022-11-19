@@ -54,6 +54,14 @@ func getIntRand(value string, defaultValue int) (int, error) {
 	return rand.Intn(max+1-min) + min, nil
 }
 
+func getFloat(value string, defaultValue float64) (float64, error) {
+	f, err := strconv.ParseFloat(value, 64)
+	if err != nil {
+		return defaultValue, err
+	}
+	return f, nil
+}
+
 func (m *Module) GetEnv(key, defaultValue string) string {
 	value := os.Getenv(key)
 	if len(value) == 0 {
@@ -80,6 +88,15 @@ func (m *Module) GetEnvIntRand(key string, defaultValue int) (int, error) {
 	return getIntRand(value, defaultValue)
 }
 
+func (m *Module) GetEnvFloat(key string, defaultValue float64) (float64, error) {
+	value := os.Getenv(key)
+	if len(value) == 0 {
+		return defaultValue, nil
+	}
+
+	return getFloat(value, defaultValue)
+}
+
 func (m *Module) GetString(value, defaultValue string) string {
 	if len(value) == 0 || value == "undefined" {
 		return defaultValue
@@ -101,6 +118,14 @@ func (m *Module) GetIntRand(value string, defaultValue int) (int, error) {
 	}
 
 	return getIntRand(value, defaultValue)
+}
+
+func (m *Module) GetFloat(value string, defaultValue float64) (float64, error) {
+	if len(value) == 0 || value == "undefined" {
+		return defaultValue, nil
+	}
+
+	return getFloat(value, defaultValue)
 }
 
 func New() *Module {
